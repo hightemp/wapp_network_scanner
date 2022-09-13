@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => NULL,
+        'name' => 'hightemp/wapp_network_scanner',
+        'dev' => true,
+    ),
+    'versions' => array(
+        'hightemp/wapp_network_scanner' => array(
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => NULL,
+            'dev_requirement' => false,
+        ),
+        'markrogoyski/ipv4-subnet-calculator' => array(
+            'pretty_version' => 'v4.0.0',
+            'version' => '4.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../markrogoyski/ipv4-subnet-calculator',
+            'aliases' => array(),
+            'reference' => 'fc7f63556bb5322af0234368b11daad9a2b17b51',
+            'dev_requirement' => false,
+        ),
+        'spatie/fork' => array(
+            'pretty_version' => '1.1.1',
+            'version' => '1.1.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/fork',
+            'aliases' => array(),
+            'reference' => 'b42152f47904b67334b147875553a6106c1b14ec',
+            'dev_requirement' => false,
+        ),
+    ),
+);

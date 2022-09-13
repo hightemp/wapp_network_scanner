@@ -1,0 +1,18 @@
+{
+    "name": "hightemp/wapp_network_scanner",
+    "autoload": {
+        "psr-4": {
+            "Hightemp\\WappNetworkScanner\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Антон Панов",
+            "email": "a.panov@avtoexpress.org"
+        }
+    ],
+    "require": {
+        "spatie/fork": "^1.1",
+        "markrogoyski/ipv4-subnet-calculator": "^4.0"
+    }
+}
