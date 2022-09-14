@@ -6,7 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'TrueBV\\' => array($vendorDir . '/true/punycode/src'),
+    'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Spatie\\Fork\\' => array($vendorDir . '/spatie/fork/src'),
+    'League\\Url\\' => array($vendorDir . '/league/url/src'),
     'IPv4\\' => array($vendorDir . '/markrogoyski/ipv4-subnet-calculator/src'),
     'Hightemp\\WappNetworkScanner\\' => array($baseDir . '/src'),
 );

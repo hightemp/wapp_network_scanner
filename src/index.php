@@ -3,12 +3,18 @@
 namespace Hightemp\WappNetworkScanner;
 
 use Hightemp\WappNetworkScanner\Scanner\MultiProcessScanner;
+use League\Url\Url;
 
 include_once(ROOT_PATH."/RedBeanPHP.php");
 
 use RedBeanPHP\Facade as R;
 
 R::setup( 'sqlite:'.ROOT_PATH.'/data/dbfile.db' );
+
+define("DATE_FORMAT", "Y-m-d H:i:s");
+
+$sURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+$sURL .= "://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
 $sContent = "";
 
@@ -42,23 +48,62 @@ if (isset($_REQUEST['action'])) {
         die('ok');
     }
     if ($_REQUEST['action']=="get_results_list") {
+        $aScantimeList = R::getAll('SELECT DISTINCT(scantime) AS scantime FROM results' );
+
+        $oURL = Url::createFromUrl($sURL);
+        $aScantimeList = array_map(function($aI) use ($oURL) { 
+            $oQ = $oURL->getQuery();
+            $oQ->modify($aI);
+            $aI['url'] = $oURL.'';
+            return $aI;
+        }, $aScantimeList);
+
+        $oURL = Url::createFromUrl($sURL);
+        $oQ = $oURL->getQuery();
+        $oQ->modify(['action'=>'get_results_list']);
+        $sListAllURL = $oURL.'';
+
+        $oURL = Url::createFromUrl($sURL);
+        $oQ = $oURL->getQuery();
+        $oQ->modify(['filter'=>'closed']);
+        $sClosedURL = $oURL.'';
+
+        $oURL = Url::createFromUrl($sURL);
+        $oQ = $oURL->getQuery();
+        $oQ->modify(['filter'=>'opened']);
+        $sOpenedURL = $oURL.'';
+
+        $oURL = Url::createFromUrl($sURL);
+        $oQ = $oURL->getQuery();
+        $oQ->modify(['export'=>'csv']);
+        $sExportCSVURL = $oURL.'';
+
         $sWhere = "WHERE 1=1 ";
+
+        if (isset($_REQUEST['scantime'])) {
+            $sWhere .= " AND scantime=".((int) $_REQUEST['scantime']);
+        }
+
         if (isset($_REQUEST['filter'])) {
             if ($_REQUEST['filter']=="opened") {
-                $sWhere .= "AND result=1";
+                $sWhere .= " AND result=1";
             }
             if ($_REQUEST['filter']=="closed") {
-                $sWhere .= "AND result=0";
+                $sWhere .= " AND result=0";
             }
         }
+
+        if (isset($_REQUEST['export'])) {
+            if ($_REQUEST['export']=="csv") {
+                R::csv("SELECT * FROM results {$sWhere} ORDER BY scantime DESC, ip_int ASC");
+                die();
+            }
+        }
+
         $aList = R::findAll('results', "{$sWhere} ORDER BY scantime DESC, ip_int ASC");
         ob_start();
         require_once("view/get_results_list.php");
         $sContent = ob_get_clean();
-    }
-    if ($_REQUEST['action']=="get_csv") {
-        R::csv('SELECT * FROM results ORDER BY scantime DESC, ip_int ASC');
-        die();
     }
 } else {
     ob_start();

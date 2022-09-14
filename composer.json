@@ -13,6 +13,7 @@
     ],
     "require": {
         "spatie/fork": "^1.1",
-        "markrogoyski/ipv4-subnet-calculator": "^4.0"
+        "markrogoyski/ipv4-subnet-calculator": "^4.0",
+        "league/url": "^3.3"
     }
 }
