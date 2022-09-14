@@ -18,6 +18,19 @@
             <?php endforeach ?>
         </ul>
     </div>
+
+    <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            port
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="?scantime=all">All</a></li>
+            <?php foreach ($aPortsList as $iI => $aRow): ?>
+                <li><a class="dropdown-item" href="<?php echo $aRow['url']; ?>"><?php echo $aRow['port']; ?></a></li>
+            <?php endforeach ?>
+        </ul>
+    </div>
 </div>
 
 <table class="table table-bordered" style="width:100%;">
