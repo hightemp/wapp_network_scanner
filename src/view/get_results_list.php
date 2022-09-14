@@ -12,9 +12,12 @@
         </a>
 
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="?scantime=all">All</a></li>
             <?php foreach ($aScantimeList as $iI => $aRow): ?>
-                <li><a class="dropdown-item" href="<?php echo $aRow['url']; ?>"><?php echo date(DATE_FORMAT, $aRow['scantime']); ?></a></li>
+                <?php if ($iI==0): ?>
+                    <li><a class="dropdown-item" href="<?php echo $aRow['url']; ?>"><?php echo $aRow['scantime']; ?></a></li>
+                <?php else: ?>
+                    <li><a class="dropdown-item" href="<?php echo $aRow['url']; ?>"><?php echo date(DATE_FORMAT, $aRow['scantime']); ?></a></li>
+                <?php endif ?>
             <?php endforeach ?>
         </ul>
     </div>
@@ -25,7 +28,6 @@
         </a>
 
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="?scantime=all">All</a></li>
             <?php foreach ($aPortsList as $iI => $aRow): ?>
                 <li><a class="dropdown-item" href="<?php echo $aRow['url']; ?>"><?php echo $aRow['port']; ?></a></li>
             <?php endforeach ?>

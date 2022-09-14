@@ -51,6 +51,7 @@ if (isset($_REQUEST['action'])) {
         $aScantimeList = R::getAll('SELECT DISTINCT(scantime) AS scantime FROM results ORDER BY scantime DESC' );
 
         $oURL = Url::createFromUrl($sURL);
+        array_unshift($aScantimeList, ["scantime" => "all"]);
         $aScantimeList = array_map(function($aI) use ($oURL) { 
             $oQ = $oURL->getQuery();
             $oQ->modify($aI);
@@ -61,6 +62,7 @@ if (isset($_REQUEST['action'])) {
         $aPortsList = R::getAll('SELECT DISTINCT(port) AS port FROM results' );
 
         $oURL = Url::createFromUrl($sURL);
+        array_unshift($aPortsList, ["port" => "all"]);
         $aPortsList = array_map(function($aI) use ($oURL) { 
             $oQ = $oURL->getQuery();
             $oQ->modify($aI);
@@ -90,11 +92,11 @@ if (isset($_REQUEST['action'])) {
 
         $sWhere = "WHERE 1=1 ";
 
-        if (isset($_REQUEST['scantime'])) {
+        if (isset($_REQUEST['scantime']) && $_REQUEST['scantime'] != "all") {
             $sWhere .= " AND scantime=".((int) $_REQUEST['scantime']);
         }
 
-        if (isset($_REQUEST['port'])) {
+        if (isset($_REQUEST['port']) && $_REQUEST['port'] != "all") {
             $sWhere .= " AND port=".((int) $_REQUEST['port']);
         }
 
