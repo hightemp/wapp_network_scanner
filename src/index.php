@@ -48,7 +48,7 @@ if (isset($_REQUEST['action'])) {
         die('ok');
     }
     if ($_REQUEST['action']=="get_results_list") {
-        $aScantimeList = R::getAll('SELECT DISTINCT(scantime) AS scantime FROM results' );
+        $aScantimeList = R::getAll('SELECT DISTINCT(scantime) AS scantime FROM results ORDER BY scantime DESC' );
 
         $oURL = Url::createFromUrl($sURL);
         $aScantimeList = array_map(function($aI) use ($oURL) { 
